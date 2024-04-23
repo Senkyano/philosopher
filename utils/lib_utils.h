@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:20:28 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/21 14:45:40 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/04/23 13:48:17 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 # include <stddef.h>
 # include <stdbool.h>
 
+// COLORS
+# define BLK "\e[0;90m"
+# define RED "\e[1;31m"
+# define GR "\e[1;92m"
+# define Y "\e[1;93m"
+# define BLU "\e[1;94m"
+# define PUR "\e[1;95m"
+# define CY "\e[1;96m"
+# define WH "\e[0;97m"
+# define RST "\e[0m"
+# define ERR_MAL "-- Malloc failed --\n"
+
 typedef struct s_data_lib
 {
 	char	*new_str;
@@ -24,6 +36,13 @@ typedef struct s_data_lib
 	int		j;
 	int		trig;
 }	t_data_lib;
+
+typedef struct s_data_atoi
+{
+	int		nbr;
+	int		negatif;
+	bool	error;
+} t_data_atoi;
 
 // Nbr
 int		nbr_base(long int nbr, int base);

@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:29:02 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/21 14:47:06 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/04/23 12:43:36 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	*str_join(char *str1, char *str2)
 	return (new_str);
 }
 
-/* Concaténe 2 chaine de caracterès pour en produire une nouvelle et free str1 */
+/* Concaténe 2 chaine de caracterès pour en produire une nouvelle et free */
+/* str1 */
 
 char	*opti1_join(char *str1, char *str2)
 {
@@ -64,7 +65,8 @@ char	*opti1_join(char *str1, char *str2)
 	return (data.new_str);
 }
 
-/* Concaténe 2 chaine de caracterès pour en produire une nouvelle et free str2 */
+/* Concaténe 2 chaine de caracterès pour en produire une nouvelle et free */
+/* str2 */
 
 char	*str2_join(char *str1, char *str2)
 {
@@ -86,8 +88,8 @@ char	*str2_join(char *str1, char *str2)
 	return (new_str);
 }
 
-/* Concaténe 2 chaine de caracterès pour en produire une nouvelle et free str1 */
-/* et str2                                                                     */
+/* Concaténe 2 chaine de caracterès pour en produire une nouvelle et free */
+/* str1 et str2                                                           */
 
 char	*strall_join(char *str1, char *str2)
 {

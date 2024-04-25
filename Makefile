@@ -53,7 +53,7 @@ all : $(NAME)
 	@echo "$(C_G)Compilation $(NAME) STATUS [OK]$(RESET)"
 
 $(NAME) : $(LIB)
-	@$(CC) $(FLAGS) -o $(NAME) main.c
+	@$(CC) $(FLAGS) -o $(NAME) main.c $(LIB)
 
 $(LIB) :
 	@make -C $(UTILS) --silent

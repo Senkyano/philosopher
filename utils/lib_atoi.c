@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:35:53 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/23 13:50:31 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/04/25 19:16:36 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_data_atoi	lib_atoi(char *str)
 		lib_atoi.negatif = 1;
 	while (str[++index])
 	{
+		if (str[index] < '0' || str[index] > '9')
+			lib_atoi.error = true;
 		lib_atoi.nbr = lib_atoi.nbr * 10 + str[index] - '0';
 		if (lib_atoi.nbr > 2147483647 && lib_atoi.negatif == 1)
 			lib_atoi.error = true;

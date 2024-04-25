@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:48:44 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/21 14:48:46 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:22:04 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ static char	*ft_readfile(int fd, char *rest)
 			return (NULL);
 		}
 		buf[bitr] = '\0';
-		rest = str1_join(rest, buf);
+		rest = opti1_join(rest, buf);
 		if (!rest)
 			return (NULL);
 	}

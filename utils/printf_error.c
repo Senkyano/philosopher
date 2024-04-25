@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:04:02 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/21 14:49:56 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:22:31 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	printf_error(const char *str, ...)
 void	choosing(char c, va_list lst, int *len)
 {
 	if (c == 's')
-		*len += write_fd(va_arg(lst, char *), 2);
+		*len += write_str_fd(va_arg(lst, char *), 2);
 	else if (c == 'd')
 		*len += nbr_base(va_arg(lst, int), 10);
 	else if (c == 'x')

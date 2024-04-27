@@ -6,15 +6,15 @@ NAME = philosopher
 #---------------#
 UTILS =		utils
 INCLUDES =	includes
-DIR_YANN = 	libft
 
 #--------------------------------------#
 #		Commande
 #-----------------------#
 RM = rm -fr
 CC = cc
-FLAGS = -Wall -Werror -Wextra -g -I $(INCLUDES) -I $(UTILS)
+FLAGS = -Wall -Werror -Wextra $(FLAG_PHILO) -g -I $(INCLUDES) -I $(UTILS)
 # FLAG_READLINE = -lreadline
+FLAG_PHILO = -lpthread -D_REENTRANT
 
 #--------------------------------------#
 #       directory

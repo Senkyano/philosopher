@@ -6,29 +6,25 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/25 19:28:01 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/04/27 19:48:54 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-bool	init_philo(char **argv, t_philo *philo);
+bool	init_philo(char **argv, t_philo_data *philo);
 bool	check_philo(int argc);
 
 int	main(int argc, char **argv)
 {
-	t_philo	philo;
+	t_philo_data	philo;
 
 	if (!check_philo(argc))
-		exit(0);
-	lib_memset(&philo, 0, sizeof(t_philo));
+		exit(1);
+	lib_memset(&philo, 0, sizeof(t_philo_data));
 	if (!init_philo(argv, &philo))
-		exit(0);
-	if (philo.nbr_philo < 1)
-	{
-		printf_error(RED"Error: invalid number of philosophers\n");
-		exit(0);
-	}
+		exit(1);
+	return (0);
 }
 
 bool	check_philo(int argc)
@@ -46,16 +42,17 @@ bool	check_philo(int argc)
 	return (true);
 }
 
-bool	init_philo(char **argv, t_philo *philo)
+bool	init_philo(char **argv, t_philo_data *philo)
 {
 	int			index;
 	t_data_atoi	info_atoi;
 	
 	index = 0;
+	lib_memset(&info_atoi, 0, sizeof(t_data_atoi));
 	while (argv[++index])
 	{
 		info_atoi = lib_atoi(argv[index]);
-		if (info_atoi.error || argv[index][0] == '-')
+		if (info_atoi.error || argv[index][0] == '-' || info_atoi.nbr < 0)
 		{
 			printf_error(RED"Error: invalid argument\n");
 			return (false);

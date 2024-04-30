@@ -6,13 +6,13 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/27 19:48:54 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/04/29 10:49:27 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-bool	init_philo(char **argv, t_philo_data *philo);
+bool	init_table(char **argv, t_philo_data *philo);
 bool	check_philo(int argc);
 
 int	main(int argc, char **argv)
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	if (!check_philo(argc))
 		exit(1);
 	lib_memset(&philo, 0, sizeof(t_philo_data));
-	if (!init_philo(argv, &philo))
+	if (!init_table(argv, &philo))
 		exit(1);
 	return (0);
 }
@@ -42,7 +42,7 @@ bool	check_philo(int argc)
 	return (true);
 }
 
-bool	init_philo(char **argv, t_philo_data *philo)
+bool	init_table(char **argv, t_philo_data *philo)
 {
 	int			index;
 	t_data_atoi	info_atoi;

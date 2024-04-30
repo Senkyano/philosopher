@@ -32,3 +32,6 @@ Une video explicatif de comment réaliser ce projet par **Jamshidbek2000**
 * ``printf()``: Prints messages.
 
 ## Usage
+autant de mutex que de fourchette
+
+un mutex = cadenas, le thread qui a lock c'est a lui qui doit unlock les autres threads, les autres threads vont essaye de lock et pendant ce temps ils sont freeze

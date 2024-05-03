@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:35:53 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/25 19:16:36 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/03 12:05:06 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_data_atoi	lib_atoi(char *str)
 {
 	t_data_atoi	lib_atoi;
 	int			index;
-	
+
 	lib_memset(&lib_atoi, 0, sizeof(t_data_atoi));
 	index = -1;
 	if (str[0] == '-')

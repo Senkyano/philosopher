@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:20:28 by rihoy             #+#    #+#             */
-/*   Updated: 2024/04/25 14:33:02 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/03 12:04:48 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_data_atoi
 	long int		nbr;
 	int				negatif;
 	bool			error;
-} t_data_atoi;
+}	t_data_atoi;
 
 // Nbr
 t_data_atoi	lib_atoi(char *str);

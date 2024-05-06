@@ -12,7 +12,7 @@ INCLUDES =	includes
 #-----------------------#
 RM = rm -fr
 CC = cc
-FLAGS = -Wall -Werror -Wextra $(FLAG_PHILO) -g -I $(INCLUDES) -I $(UTILS)
+FLAGS = -Wall -Werror -Wextra -g -I $(INCLUDES) -I $(UTILS)
 # FLAG_READLINE = -lreadline
 FLAG_PHILO = -lpthread -D_REENTRANT
 
@@ -20,6 +20,7 @@ FLAG_PHILO = -lpthread -D_REENTRANT
 #       directory
 #-----------------------#
 SRCS = srcs
+OBJS = objs
 
 #--------------------------------------#
 #       Colors
@@ -43,8 +44,11 @@ EXTENSION = $(UTILS)/lib.a
 #--------------------------------------#
 #		File
 #-----------------------#
+FILE_C =	init_philo.c \
+			routine.c
 
-
+SRC = $(addprefix $(SRCS)/, $(FILE_C))
+OBJ = $(patsubst %.c, $(OBJS)/%.o, $(FILE_C))
 
 #--------------------------------------#
 #		Rules
@@ -52,8 +56,13 @@ EXTENSION = $(UTILS)/lib.a
 all : $(NAME)
 	@echo "$(C_G)Compilation $(NAME) STATUS [OK]$(RESET)"
 
-$(NAME) : $(LIB)
-	@$(CC) $(FLAGS) -o $(NAME) main.c $(LIB)
+$(NAME) : $(LIB) $(OBJ)
+	@$(CC) $(FLAGS) $(FLAG_PHILO) -o $(NAME) main.c $(LIB) $(OBJ)
+
+$(OBJS)/%.o : $(SRCS)/%.c
+	@mkdir -p $(OBJS)
+	@$(CC) $(FLAGS) -c $< -o $@
+	@echo "$(C_B)loading : $(RESET)$< $(C_G)[OK]$(RESET)"
 
 $(LIB) :
 	@make -C $(UTILS) --silent

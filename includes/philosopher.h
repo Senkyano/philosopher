@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/03 12:48:24 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/06 17:42:50 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@
 # define PHILO 1
 # define FORK 2
 
+# define BLK "\e[0;90m"
+# define RED "\e[1;31m"
+# define GR "\e[1;92m"
+# define Y "\e[1;93m"
+# define BLU "\e[1;94m"
+# define PUR "\e[1;95m"
+# define CY "\e[1;96m"
+# define WH "\e[0;97m"
+# define RST "\e[0m"
+
 typedef struct s_philosophe	t_philosophe;
 
 typedef struct s_philo_data
@@ -32,22 +42,24 @@ typedef struct s_philo_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nbr_eat;
-	t_philosophe	*philo;
+	pthread_t		*admin_thread;//malloc
+	t_philosophe	*philo_man;//malloc nbr_philo
 }	t_philo_data;
 
 typedef struct s_philosophe
 {
 	int				id;
-	pthread_t		*philo_thread;
-	pthread_mutex_t	*left_fork;
+	pthread_t		*philo_thread;//malloc
+	pthread_mutex_t	*left_fork;//mutex
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	die;
-	useconds_t		last_meal;
-	useconds_t		time;
+	pthread_mutex_t	*die;//mutex
+	suseconds_t		last_meal;
+	suseconds_t		time;
 }	t_philosophe;
 // init philo
 bool	init_philo(t_philo_data *if_tb);
 // routine philo
-void	routine_philo(void *philo);
+void	*routine_philo(void *philo);
+void	*admin_philo(void *data_info);
 
 #endif

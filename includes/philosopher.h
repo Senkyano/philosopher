@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/06 17:42:50 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/07 18:10:58 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,27 @@ typedef struct s_philo_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nbr_eat;
-	pthread_t		*admin_thread;//malloc
+	pthread_t		admin_thread;//malloc
+	pthread_mutex_t	die;//mutex
 	t_philosophe	*philo_man;//malloc nbr_philo
 }	t_philo_data;
 
 typedef struct s_philosophe
 {
 	int				id;
-	pthread_t		*philo_thread;//malloc
-	pthread_mutex_t	*left_fork;//mutex
+	pthread_t		philo_thread;//malloc
+	pthread_mutex_t	left_fork;//mutex
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*die;//mutex
 	suseconds_t		last_meal;
 	suseconds_t		time;
 }	t_philosophe;
+
 // init philo
 bool	init_philo(t_philo_data *if_tb);
 // routine philo
 void	*routine_philo(void *philo);
 void	*admin_philo(void *data_info);
+// free philo
+void	free_philosophe(t_philo_data *table);
 
 #endif

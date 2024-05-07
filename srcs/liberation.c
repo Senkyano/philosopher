@@ -1,47 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   liberation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 22:34:16 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/07 17:38:15 by rihoy            ###   ########.fr       */
+/*   Created: 2024/05/07 17:52:58 by rihoy             #+#    #+#             */
+/*   Updated: 2024/05/07 18:29:05 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	*routine_philo(void *philo)
+void	free_philosophe(t_philo_data *table)
 {
-	t_philosophe	*philo_man;
+	int	i;
 
-	printf_error("philo is\n");
-	philo_man = (t_philosophe *)philo;
-	while (1)
+	i = -1;
+	while (++i < table->nbr_philo)
 	{
-		printf_error("philo is\n");
-		usleep(1000);
+		pthread_mutex_destroy(&table->philo_man[i].left_fork);
+		if (table->philo_man[i].philo_thread)
+			pthread_join(table->philo_man[i].philo_thread, NULL);
 	}
-	return (NULL);
-}
-
-void	start_philo(t_philosophe *philo)
-{
-	if (philo->id % 2 == 0)
-	{
-	}
-	else
-	{
-	}
-}
-
-void	*admin_philo(void *data_info)
-{
-	// int				i;
-	t_philo_data	*data;
-
-	data = (t_philo_data *)data_info;
-	printf_error("admin is\n");
-	return (NULL);
+	free(table->philo_man);
+	pthread_mutex_destroy(&table->die);
+	if (table->admin_thread)
+		pthread_join(table->admin_thread, NULL);
 }

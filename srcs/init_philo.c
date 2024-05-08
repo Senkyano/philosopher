@@ -6,13 +6,13 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:18:21 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/07 18:28:37 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/08 23:49:25 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-bool	init_man(t_philosophe *philo);
+bool	init_man(t_philosophe *philo, int id);
 void	close_mutex(t_philo_data *if_tb, int n);
 
 bool	init_philo(t_philo_data *if_tb)
@@ -28,25 +28,26 @@ bool	init_philo(t_philo_data *if_tb)
 	}
 	while (++id < if_tb->nbr_philo)
 	{
-		if (!init_man(&if_tb->philo_man[id]))
+		if_tb->philo_man[id].data = if_tb;
+		if (!init_man(&if_tb->philo_man[id], id))
 		{
 			close_mutex(if_tb, id);
 			return (false);
 		}
-		if (id == if_tb->nbr_philo - 1)
+		if (if_tb->nbr_philo != 1 && id == if_tb->nbr_philo - 1)
 			if_tb->philo_man[id].right_fork = &if_tb->philo_man[0].left_fork;
-		else
+		else if (if_tb->nbr_philo != 1)
 			if_tb->philo_man[id].right_fork = &if_tb->philo_man[id + 1].left_fork;
 	}
 	return (true);
 }
 
-bool	init_man(t_philosophe *philo)
+bool	init_man(t_philosophe *philo, int id)
 {
-	philo->id = 0;
-	philo->time = 0;
+	philo->id = id;
 	philo->last_meal = 0;
 	philo->philo_thread = 0;
+	philo->right_fork = NULL;
 	if (pthread_mutex_init(&philo->left_fork, NULL))
 	{
 		printf_error(RED"Error: mutex init failed\n"RST);

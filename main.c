@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/08 11:32:15 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/08 23:57:22 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ bool	init_all(t_philo_data *table);
 int	main(int argc, char **argv)
 {
 	t_philo_data	philo;
-	// int				philo_id;
-	// int				i;
+	int				philo_id;
+	int				i;
 
-	// i = -1;
+	i = -1;
 	if (!check_philo(argc))
 		exit(1);
 	lib_memset(&philo, 0, sizeof(t_philo_data));
@@ -30,26 +30,16 @@ int	main(int argc, char **argv)
 		exit(1);
 	if (!init_all(&philo))
 		exit(1);
-	// while (++i < philo.nbr_philo)
-	// {
-	// 	printf_error("philo %d create\n", i);
-	// 	philo_id = pthread_create(philo.admin_thread, NULL, admin_philo, &philo);
-	// 	if (philo_id != 0)
-	// 	{
-	// 		printf_error(RED"Error: pthread_create failed\n"RST);
-	// 		exit(1);
-	// 	}
-	// }
-	// i = -1;
-	// while (++i < philo.nbr_philo)
-	// {
-	// 	printf_error("philo %d create\n", i);
-	// 	philo_id = pthread
-	// }
-	// pthread_join(*philo.admin_thread, NULL);
-	// free(philo.admin_thread);
-	// creation des philosophe
-	// boucle check de vie des philosophe
+	philo.start_time = actual_time();
+	while (++i < philo.nbr_philo)
+	{
+		philo_id = pthread_create(&philo.philo_man[i].philo_thread, NULL, routine_philo, &philo.philo_man[i]);
+		if (philo_id != 0)
+		{
+			printf_error(RED"Error: pthread_create failed\n"RST);
+			exit(1);
+		}
+	}
 	free_philosophe(&philo);
 	return (0);
 }

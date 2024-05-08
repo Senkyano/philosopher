@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:34:16 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/07 17:38:15 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/08 11:31:30 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	*routine_philo(void *philo)
 
 	printf_error("philo is\n");
 	philo_man = (t_philosophe *)philo;
+	(void)philo_man;
 	while (1)
 	{
 		printf_error("philo is\n");
@@ -42,6 +43,7 @@ void	*admin_philo(void *data_info)
 	t_philo_data	*data;
 
 	data = (t_philo_data *)data_info;
+	(void)data;
 	printf_error("admin is\n");
 	return (NULL);
 }

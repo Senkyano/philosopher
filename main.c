@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/07 18:28:49 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/08 11:32:15 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int argc, char **argv)
 {
 	t_philo_data	philo;
 	// int				philo_id;
-	int				i;
+	// int				i;
 
-	i = -1;
+	// i = -1;
 	if (!check_philo(argc))
 		exit(1);
 	lib_memset(&philo, 0, sizeof(t_philo_data));

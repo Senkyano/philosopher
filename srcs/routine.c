@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:34:16 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/09 15:50:12 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/09 22:15:53 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,13 @@ void	*routine_philo(void *philo)
 	thinkeur = (t_philosophe *)philo;
 	if (!start_routine(thinkeur))
 		return (NULL);
-	while (1 && thinkeur->data->nbr_eat != thinkeur->add_eat && thinkeur->data->one_dead == false)
+	while (1)
 	{
-		pthread_mutex_lock(&thinkeur->die);
-		// long time = actual_time() - thinkeur->data->start_time;
-		if (!eating(thinkeur))
+		if (condition_die(thinkeur))
 			return (NULL);
-		if (!sleeping(thinkeur))
-			return (NULL);
-		pthread_mutex_unlock(&thinkeur->die);
-		// printf("%ld time\n", time);
-		// usleep(thinkeur->data->time_to_eat * 1000);
+		//eating(thinkeur);
+		//sleeping(thinkeur);
+		//quota_eat(thinkeur);
 	}
 	return (NULL);
 }

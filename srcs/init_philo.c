@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:18:21 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/09 15:44:51 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/09 22:17:41 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ bool	init_man(t_philosophe *philo, int id)
 	philo->last_meal = 0;
 	philo->philo_thread = 0;
 	philo->right_fork = NULL;
-	if (pthread_mutex_init(&philo->die, NULL))
-	{
-		printf_error(RED"Error: mutex init failed\n"RST);
-		return (false);
-	}
+	// if (pthread_mutex_init(&philo->die, NULL))
+	// {
+	// 	printf_error(RED"Error: mutex init failed\n"RST);
+	// 	return (false);
+	// }
 	if (pthread_mutex_init(&philo->left_fork, NULL))
 	{
 		printf_error(RED"Error: mutex init failed\n"RST);

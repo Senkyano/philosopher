@@ -46,7 +46,8 @@ EXTENSION = $(UTILS)/lib.a
 #-----------------------#
 FILE_C =	init_philo.c \
 			routine.c \
-			liberation.c
+			liberation.c \
+			action.c
 
 SRC = $(addprefix $(SRCS)/, $(FILE_C))
 OBJ = $(patsubst %.c, $(OBJS)/%.o, $(FILE_C))

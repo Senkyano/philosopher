@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:34:16 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/09 00:00:10 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/09 15:50:12 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,19 @@ void	*routine_philo(void *philo)
 	thinkeur = (t_philosophe *)philo;
 	if (!start_routine(thinkeur))
 		return (NULL);
-	while (1)
+	while (1 && thinkeur->data->nbr_eat != thinkeur->add_eat && thinkeur->data->one_dead == false)
 	{
-		long time = actual_time() - thinkeur->data->start_time;
-		printf("%ld time\n", time);
-		usleep(thinkeur->data->time_to_eat * 1000);
+		pthread_mutex_lock(&thinkeur->die);
+		// long time = actual_time() - thinkeur->data->start_time;
+		if (!eating(thinkeur))
+			return (NULL);
+		if (!sleeping(thinkeur))
+			return (NULL);
+		pthread_mutex_unlock(&thinkeur->die);
+		// printf("%ld time\n", time);
+		// usleep(thinkeur->data->time_to_eat * 1000);
 	}
+	return (NULL);
 }
 
 bool	start_routine(t_philosophe *thinkeur)
@@ -39,7 +46,7 @@ bool	start_routine(t_philosophe *thinkeur)
 		return (false);
 	if (thinkeur->data->nbr_philo == 1)
 	{
-		printf("%ld %d has taken fork\n",time ,thinkeur->id);
+		printf("%ld %d has taken a fork\n",time ,thinkeur->id);
 		usleep(thinkeur->data->time_to_die * 1000);
 		time = actual_time() - thinkeur->data->start_time;
 		if (time == -1)

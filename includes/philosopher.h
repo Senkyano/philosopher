@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/09 22:17:27 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/10 17:56:32 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ bool	init_philo(t_philo_data *if_tb);
 void	*routine_philo(void *philo);
 // free philo
 void	free_philosophe(t_philo_data *table);
-
+// action
 bool	condition_die(t_philosophe *thinkeur);
 bool	eating(t_philosophe *thinkeur);
+bool	quota_eat(t_philosophe *thinkeur);
 bool	sleeping(t_philosophe *thinkeur);
 long	actual_time(void);
 

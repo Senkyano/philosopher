@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:34:16 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/09 22:15:53 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/10 17:57:37 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ void	*routine_philo(void *philo)
 	{
 		if (condition_die(thinkeur))
 			return (NULL);
-		//eating(thinkeur);
-		//sleeping(thinkeur);
-		//quota_eat(thinkeur);
+		if (!eating(thinkeur))
+			return (NULL);
+		if (quota_eat(thinkeur))
+			break ;
+		if (!sleeping(thinkeur))
+			return (NULL);
 	}
 	return (NULL);
 }

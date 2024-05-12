@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/11 20:19:15 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/12 02:19:26 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 bool	init_table(char **argv, t_philo_data *philo);
 bool	check_philo(int argc);
 bool	init_all(t_philo_data *table);
+bool	launch_philo(t_philo_data *table);
 
 int	main(int argc, char **argv)
 {
 	t_philo_data	philo;
 	int				philo_id;
-	int				i;
 
-	i = -1;
 	if (!check_philo(argc))
 		exit(1);
 	lib_memset(&philo, 0, sizeof(t_philo_data));
@@ -31,16 +30,8 @@ int	main(int argc, char **argv)
 	if (!init_all(&philo))
 		exit(1);
 	philo.start_time = actual_time();
-	while (++i < philo.nbr_philo)
-	{
-		philo_id = pthread_create(&philo.philo_man[i].philo_thread, NULL, routine_philo, &philo.philo_man[i]);
-		if (philo_id != 0)
-		{
-			printf_error(RED"Error: pthread_create failed\n"RST);
-			free_philosophe(&philo);
-			exit(1);
-		}
-	}
+	if (!launch_philo(&philo))
+		return (1);
 	philo_id = pthread_create(&philo.admin_thread, NULL, control_admin, &philo);
 	if (philo_id != 0)
 	{
@@ -50,6 +41,26 @@ int	main(int argc, char **argv)
 	}
 	free_philosophe(&philo);
 	return (0);
+}
+
+bool	launch_philo(t_philo_data *table)
+{
+	int	philo_id;
+	int	i;
+
+	i = -1;
+	while (++i < table->nbr_philo)
+	{
+		philo_id = pthread_create(&table->philo_man[i].philo_thread, NULL, \
+		routine_philo, &table->philo_man[i]);
+		if (philo_id != 0)
+		{
+			printf_error(RED"Error: pthread_create failed\n"RST);
+			free_philosophe(table);
+			return (false);
+		}
+	}
+	return (true);
 }
 
 bool	check_philo(int argc)

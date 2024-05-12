@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:52:58 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/09 22:20:12 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/12 02:12:14 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_philosophe(t_philo_data *table)
 	while (++i < table->nbr_philo)
 	{
 		pthread_mutex_destroy(&table->philo_man[i].left_fork);
-		// pthread_mutex_destroy(&table->philo_man[i].die);
 		if (table->philo_man[i].philo_thread)
 			pthread_join(table->philo_man[i].philo_thread, NULL);
 	}

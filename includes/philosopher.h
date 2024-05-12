@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/10 17:56:32 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/12 01:59:51 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_philosophe
 bool	init_philo(t_philo_data *if_tb);
 // routine philo
 void	*routine_philo(void *philo);
+void	*control_admin(void *arg);
 // free philo
 void	free_philosophe(t_philo_data *table);
 // action
@@ -72,5 +73,6 @@ bool	eating(t_philosophe *thinkeur);
 bool	quota_eat(t_philosophe *thinkeur);
 bool	sleeping(t_philosophe *thinkeur);
 long	actual_time(void);
+bool	print_time(char *str, t_philosophe *thinkeur);
 
 #endif

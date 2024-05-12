@@ -47,7 +47,8 @@ EXTENSION = $(UTILS)/lib.a
 FILE_C =	init_philo.c \
 			routine.c \
 			liberation.c \
-			action.c
+			action.c \
+			admin.c
 
 SRC = $(addprefix $(SRCS)/, $(FILE_C))
 OBJ = $(patsubst %.c, $(OBJS)/%.o, $(FILE_C))
@@ -59,7 +60,7 @@ all : $(NAME)
 	@echo "$(C_G)Compilation $(NAME) STATUS [OK]$(RESET)"
 
 $(NAME) : $(LIB) $(OBJ)
-	@$(CC) $(FLAGS) $(FLAG_PHILO) -o $(NAME) main.c $(LIB) $(OBJ)
+	@$(CC) $(FLAGS) $(FLAG_PHILO) -o $(NAME) main.c $(LIB) $(OBJ) $(EXTENSION)
 
 $(OBJS)/%.o : $(SRCS)/%.c
 	@mkdir -p $(OBJS)

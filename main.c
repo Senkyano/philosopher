@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/09 22:19:39 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/11 20:19:15 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,16 @@ int	main(int argc, char **argv)
 		if (philo_id != 0)
 		{
 			printf_error(RED"Error: pthread_create failed\n"RST);
+			free_philosophe(&philo);
 			exit(1);
 		}
+	}
+	philo_id = pthread_create(&philo.admin_thread, NULL, control_admin, &philo);
+	if (philo_id != 0)
+	{
+		printf_error(RED"Error: pthread_create failed\n"RST);
+		free_philosophe(&philo);
+		exit(1);
 	}
 	free_philosophe(&philo);
 	return (0);

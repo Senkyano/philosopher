@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 21:34:36 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/12 02:04:24 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/15 12:44:17 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 bool	take_fork(t_philosophe *thinkeur, pthread_mutex_t *fork)
 {
 	pthread_mutex_lock(fork);
+	if (condition_die(thinkeur))
+		return (pthread_mutex_unlock(fork), false);
 	if (!print_time("has taken a fork", thinkeur))
 		return (pthread_mutex_unlock(fork), false);
 	return (true);

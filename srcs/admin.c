@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 20:10:53 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/12 02:10:07 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/15 12:28:54 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	*control_admin(void *arg)
 			if (condition_die(&data->philo_man[i]))
 				break ;
 		}
+		if (data->philo_man[data->nbr_philo - 1].add_eat == data->nbr_eat)
+			break ;
 		if (data->one_dead)
 			break ;
 	}

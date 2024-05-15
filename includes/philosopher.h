@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/12 01:59:51 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/15 12:23:33 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_philo_data
 	bool			one_dead;
 	pthread_t		admin_thread;
 	pthread_mutex_t	die;
-	t_philosophe	*philo_man;//malloc nbr_philo
+	t_philosophe	*philo_man;
 }	t_philo_data;
 
 typedef struct s_philosophe

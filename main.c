@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/12 02:19:26 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/15 12:24:21 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ bool	init_all(t_philo_data *table)
 	table->admin_thread = 0;
 	if (table->nbr_eat == 0)
 		table->nbr_eat = -1;
+	if (table->nbr_philo == 0)
+		return (false);
 	if (pthread_mutex_init(&table->die, NULL))
 	{
 		printf_error(RED"Error: mutex init failed\n"RST);

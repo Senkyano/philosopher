@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/15 12:23:33 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/15 17:44:57 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,46 +33,44 @@
 # define WH "\e[0;97m"
 # define RST "\e[0m"
 
-typedef struct s_philosophe	t_philosophe;
+//max on peut avoir 18676 threads
 
-typedef struct s_philo_data
+typedef struct s_philo	t_philo;
+
+typedef struct s_table
 {
 	int				nbr_philo;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				nbr_eat;
+	int				tot_eat;
 	long			start_time;
 	bool			one_dead;
 	pthread_t		admin_thread;
 	pthread_mutex_t	die;
-	t_philosophe	*philo_man;
-}	t_philo_data;
+	t_philo			*man;
+}	t_table;
 
-typedef struct s_philosophe
+typedef struct s_philo
 {
-	int				add_eat;
+	int				nbr_eat;
 	int				id;
 	pthread_t		philo_thread;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
-	suseconds_t		last_meal;
-	t_philo_data	*data;
-}	t_philosophe;
+	long			last_meal;
+	t_table			*data;
+}	t_philo;
 
-// init philo
-bool	init_philo(t_philo_data *if_tb);
-// routine philo
-void	*routine_philo(void *philo);
-void	*control_admin(void *arg);
-// free philo
-void	free_philosophe(t_philo_data *table);
-// action
-bool	condition_die(t_philosophe *thinkeur);
-bool	eating(t_philosophe *thinkeur);
-bool	quota_eat(t_philosophe *thinkeur);
-bool	sleeping(t_philosophe *thinkeur);
+//main
 long	actual_time(void);
-bool	print_time(char *str, t_philosophe *thinkeur);
-
+//init_philo
+bool	init_philo(int id, t_table *data, t_philo *philo);
+void	free_all_philo(int i, t_table *data);
+//admin 
+void	*admin(void *arg);
+//liberation
+void	wait_threads(t_table *data);
+//routine
+void	*philo_routine(void *arg);
 #endif

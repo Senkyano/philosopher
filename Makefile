@@ -15,7 +15,8 @@ CC = cc
 FLAGS = -Wall -Werror -Wextra $(SANI) -g -I $(INCLUDES) -I $(UTILS)
 # FLAG_READLINE = -lreadline
 FLAG_PHILO = -lpthread -D_REENTRANT
-SANI = -fsanitize=thread
+SANI_MEM = -fsanitize=address -fsanitize=leak -fsanitize=undefined
+SANI = -fsanitize=address -fsanitize=leak -fsanitize=undefined
 
 #--------------------------------------#
 #       directory

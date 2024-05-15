@@ -12,9 +12,10 @@ INCLUDES =	includes
 #-----------------------#
 RM = rm -fr
 CC = cc
-FLAGS = -Wall -Werror -Wextra -g -I $(INCLUDES) -I $(UTILS)
+FLAGS = -Wall -Werror -Wextra $(SANI) -g -I $(INCLUDES) -I $(UTILS)
 # FLAG_READLINE = -lreadline
 FLAG_PHILO = -lpthread -D_REENTRANT
+SANI = -fsanitize=thread
 
 #--------------------------------------#
 #       directory

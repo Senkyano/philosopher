@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/15 12:24:21 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:44:01 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,6 @@ int	main(int argc, char **argv)
 	lib_memset(&philo, 0, sizeof(t_philo_data));
 	if (!init_table(argv, &philo))
 		exit(1);
-	if (!init_all(&philo))
-		exit(1);
-	philo.start_time = actual_time();
-	if (!launch_philo(&philo))
-		return (1);
-	philo_id = pthread_create(&philo.admin_thread, NULL, control_admin, &philo);
-	if (philo_id != 0)
-	{
-		printf_error(RED"Error: pthread_create failed\n"RST);
-		free_philosophe(&philo);
-		exit(1);
-	}
-	free_philosophe(&philo);
-	return (0);
 }
 
 bool	launch_philo(t_philo_data *table)

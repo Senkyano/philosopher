@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 20:10:53 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 15:00:18 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:48:21 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_death_admin(t_table *data)
 	time = time - data->start_time;
 	while (++i < data->nbr_philo)
 	{
-		if (time - data->man[i].last_meal > data->time_to_die)
+		if (time - data->man[i].last_meal >= data->time_to_die)
 		{
 			pthread_mutex_lock(&data->die);
 			pthread_mutex_lock(&data->write);

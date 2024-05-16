@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/15 17:53:33 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/16 14:55:12 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ int	main(int argc, char **argv)
 		printf(RED"Error: wrong number of arguments\n"RST);
 		return (1);
 	}
-	if (!init_table(&table, argv) || !init_sec(&table, argc))
+	if (!init_table(&table, argv))
 		return (1);
+	if (!init_sec(&table, argc))
+		return (1);
+	printf(GR"Simulation started\n"RST);
 	if (!launch_philo(&table))
 		return (1);
 	wait_threads(&table);
@@ -39,11 +42,9 @@ bool	launch_philo(t_table *table)
 	int	i;
 
 	i = -1;
-	pthread_mutex_lock(&table->die);
-	if (pthread_create(&table->admin_thread, NULL, admin, &table) != 0)
+	if (pthread_create(&table->admin_thread, NULL, admin, table) != 0)
 	{
 		table->one_dead = true;
-		pthread_mutex_unlock(&table->die);
 		return (printf(RED"Error: pthread_create failed\n"RST), false);
 	}
 	while (++i < table->nbr_philo)
@@ -52,11 +53,10 @@ bool	launch_philo(t_table *table)
 		philo_routine, &table->man[i]) != 0)
 		{
 			table->one_dead = true;
-			pthread_mutex_unlock(&table->die);
 			return (printf(RED"Error: pthread_create failed\n"RST), false);
 		}
 	}
-	pthread_mutex_unlock(&table->die);
+	table->all_create = true;
 	return (true);
 }
 
@@ -83,8 +83,8 @@ bool	init_table(t_table *table, char **argv)
 		else if (i == 5)
 			table->tot_eat = info_atoi.nbr;
 	}
-	if (table->nbr_philo < 0 || table->time_to_die < 0  || \
-	table->time_to_eat < 0 || table->time_to_sleep < 0 || table->tot_eat < 0)
+	if (table->nbr_philo <= 0 || table->time_to_die <= 0  || \
+	table->time_to_eat <= 0 || table->time_to_sleep <= 0 || table->tot_eat < 0)
 		return (printf(RED"Error: invalid argument\n"RST), false);
 	return (true);
 }
@@ -107,6 +107,12 @@ bool	init_sec(t_table *table, int argc)
 	if (pthread_mutex_init(&table->die, NULL) != 0)
 	{
 		printf(RED"Error: mutex init failed\n"RST);
+		return (free_all_philo(i - 1, table), false);
+	}
+	if (pthread_mutex_init(&table->write, NULL) != 0)
+	{
+		printf(RED"Error: mutex init failed\n"RST);
+		pthread_mutex_destroy(&table->die);
 		return (free_all_philo(i - 1, table), false);
 	}
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 21:34:36 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 14:53:26 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:33:17 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ bool	taking_fork(t_philo *philo)
 bool	eating_pasta(t_philo *philo)
 {
 	long	time;
+
 	if (!print_action("is eating", philo))
 		return (false);
 	usleep(philo->data->time_to_eat * 1000);
@@ -69,5 +70,7 @@ bool	sleeping(t_philo *philo)
 		return (false);
 	usleep(philo->data->time_to_sleep * 1000);
 	print_action("is thinking", philo);
+	if (philo->data->nbr_philo % 2 == 1)
+		usleep(5000);
 	return (true);
 }

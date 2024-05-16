@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 14:55:12 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:07:10 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ bool	init_table(t_table *table, char **argv)
 {
 	t_data_atoi	info_atoi;
 	int			i;
-	
-	lib_memset(table, 0, sizeof(t_table));
+
+	memset(table, 0, sizeof(t_table));
 	i = 0;
 	while (argv[++i])
 	{
@@ -83,7 +83,7 @@ bool	init_table(t_table *table, char **argv)
 		else if (i == 5)
 			table->tot_eat = info_atoi.nbr;
 	}
-	if (table->nbr_philo <= 0 || table->time_to_die <= 0  || \
+	if (table->nbr_philo <= 0 || table->time_to_die <= 0 || \
 	table->time_to_eat <= 0 || table->time_to_sleep <= 0 || table->tot_eat < 0)
 		return (printf(RED"Error: invalid argument\n"RST), false);
 	return (true);
@@ -91,7 +91,7 @@ bool	init_table(t_table *table, char **argv)
 
 bool	init_sec(t_table *table, int argc)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (argc == 5 && table->tot_eat == 0)

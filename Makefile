@@ -12,7 +12,7 @@ INCLUDES =	includes
 #-----------------------#
 RM = rm -fr
 CC = cc
-FLAGS = -Wall -Werror -Wextra $(SANI) -g -I $(INCLUDES) -I $(UTILS)
+FLAGS = -Wall -Werror -Wextra $(SANI) -g -I $(INCLUDES)
 # FLAG_READLINE = -lreadline
 FLAG_PHILO = -lpthread -D_REENTRANT
 SANI_MEM = -fsanitize=address -fsanitize=leak -fsanitize=undefined
@@ -61,26 +61,24 @@ OBJ = $(patsubst %.c, $(OBJS)/%.o, $(FILE_C))
 all : $(NAME)
 	@echo "$(C_G)Compilation $(NAME) STATUS [OK]$(RESET)"
 
-$(NAME) : $(LIB) $(OBJ)
-	@$(CC) $(FLAGS) $(FLAG_PHILO) -o $(NAME) main.c $(LIB) $(OBJ) $(EXTENSION)
+$(NAME) : $(OBJ)
+	@$(CC) $(FLAGS) $(FLAG_PHILO) -o $(NAME) main.c $(OBJ)
+
+# $(LIB) :
+# 	@make -C $(UTILS) --silent
 
 $(OBJS)/%.o : $(SRCS)/%.c
 	@mkdir -p $(OBJS)
 	@$(CC) $(FLAGS) -c $< -o $@
 	@echo "$(C_B)loading : $(RESET)$< $(C_G)[OK]$(RESET)"
 
-$(LIB) :
-	@make -C $(UTILS) --silent
-
 clean :
 	@$(RM) $(OBJS)
-	@make clean -C $(UTILS) --silent
 	@echo "$(C_R)FILE '*.o' for $(NAME) deleted$(RESET)"
 
 fclean :
 	@$(RM) $(NAME)
 	@$(RM) $(OBJS)
-	@make fclean -C $(UTILS) --silent
 	@echo "$(C_W)FILE '*.o' for $(C_R)$(NAME) deleted$(RESET)"
 	@echo "Projet $(C_R)$(NAME) deleted$(RESET)"
 

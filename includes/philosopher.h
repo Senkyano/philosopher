@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 14:48:22 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:08:17 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define PHILOSOPHER_H
 
 # include <pthread.h>
+# include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
-# include "lib_utils.h"
 # include <stdbool.h>
 
 # define PHILO 1
@@ -66,22 +66,30 @@ typedef struct s_philo
 	t_table			*data;
 }	t_philo;
 
+typedef struct s_data_atoi
+{
+	long int		nbr;
+	int				negatif;
+	bool			error;
+}	t_data_atoi;
+
 //main
-long	actual_time(void);
+long		actual_time(void);
 //init_philo
-bool	init_philo(int id, t_table *data, t_philo *philo);
-void	free_all_philo(int i, t_table *data);
+bool		init_philo(int id, t_table *data, t_philo *philo);
+void		free_all_philo(int i, t_table *data);
 //admin 
-void	*admin(void *arg);
-int		check_death(t_philo *philo);
+void		*admin(void *arg);
+int			check_death(t_philo *philo);
 //liberation
-void	wait_threads(t_table *data);
+void		wait_threads(t_table *data);
+t_data_atoi	lib_atoi(char *str);
 //routine
-void	*philo_routine(void *arg);
+void		*philo_routine(void *arg);
 //action
-bool	print_action(char *str, t_philo *philo);
-bool	taking_fork(t_philo *philo);
-bool	eating_pasta(t_philo *philo);
-bool	sleeping(t_philo *philo);
+bool		print_action(char *str, t_philo *philo);
+bool		taking_fork(t_philo *philo);
+bool		eating_pasta(t_philo *philo);
+bool		sleeping(t_philo *philo);
 
 #endif

@@ -6,13 +6,11 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:18:21 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/15 17:12:56 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:07:53 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
-
 
 bool	init_philo(int id, t_table *data, t_philo *philo)
 {
@@ -39,4 +37,3 @@ void	free_all_philo(int i, t_table *data)
 	}
 	free(data->man);
 }
-

@@ -12,7 +12,7 @@ INCLUDES =	includes
 #-----------------------#
 RM = rm -fr
 CC = cc
-FLAGS = -Wall -Werror -Wextra $(SANI) -g -I $(INCLUDES)
+FLAGS = -Wall -Werror -Wextra -g -I $(INCLUDES)
 # FLAG_READLINE = -lreadline
 FLAG_PHILO = -lpthread -D_REENTRANT
 SANI_MEM = -fsanitize=address -fsanitize=leak -fsanitize=undefined

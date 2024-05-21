@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:45:09 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 15:08:17 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/21 02:34:12 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_table
 	pthread_t		admin_thread;
 	pthread_mutex_t	die;
 	pthread_mutex_t	write;
+	pthread_mutex_t	create;
 	t_philo			*man;
 }	t_table;
 
@@ -84,6 +85,8 @@ int			check_death(t_philo *philo);
 //liberation
 void		wait_threads(t_table *data);
 t_data_atoi	lib_atoi(char *str);
+void		all_destroy(t_table *data);
+bool		create_mutex(t_table *data);
 //routine
 void		*philo_routine(void *arg);
 //action

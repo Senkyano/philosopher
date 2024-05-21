@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:34:16 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 15:08:02 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/21 02:41:37 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,16 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (1 && (!philo->data->all_create || !philo->data->admin_ready))
+	pthread_mutex_lock(&philo->data->create);
+	while (1 && !philo->data->admin_ready)
+	{
+		pthread_mutex_unlock(&philo->data->create);
+		usleep(100);
 		if (philo->data->one_dead)
-			return (NULL);
+			return (pthread_mutex_unlock(&philo->data->create), NULL);
+		pthread_mutex_lock(&philo->data->create);
+	}
+	pthread_mutex_unlock(&philo->data->create);
 	if (!who_start(philo))
 		return (NULL);
 	while (1)
@@ -42,14 +49,16 @@ bool	who_start(t_philo *philo)
 	{
 		if (print_action("has taken fork", philo))
 			return (false);
-		usleep(philo->data->time_to_die * 1000);
+		if (usleep(philo->data->time_to_die * 1000) != 0)
+			return (false);
 		return (false);
 	}
 	if (philo->id % 2 == 0)
 	{
 		if (!print_action("is thinking", philo))
 			return (false);
-		usleep(philo->data->time_to_eat * 1000);
+		if (usleep(philo->data->time_to_eat * 1000) != 0)
+			return (false);
 	}
 	return (true);
 }

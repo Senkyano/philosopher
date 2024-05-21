@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:52:58 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 15:57:11 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/21 02:36:12 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,35 @@ t_data_atoi	lib_atoi(char *str)
 	}
 	lib_atoi.nbr *= lib_atoi.negatif;
 	return (lib_atoi);
+}
+
+void	all_destroy(t_table *data)
+{
+	pthread_mutex_destroy(&data->die);
+	pthread_mutex_destroy(&data->write);
+	pthread_mutex_unlock(&data->create);
+	pthread_mutex_destroy(&data->create);
+}
+
+bool	create_mutex(t_table *data)
+{
+	if (pthread_mutex_init(&data->die, NULL) != 0)
+	{
+		printf(RED"Error: mutex init failed\n"RST);
+		return (free_all_philo(data->nbr_philo - 1, data), false);
+	}
+	if (pthread_mutex_init(&data->write, NULL) != 0)
+	{
+		printf(RED"Error: mutex init failed\n"RST);
+		pthread_mutex_destroy(&data->die);
+		return (free_all_philo(data->nbr_philo - 1, data), false);
+	}
+	if (pthread_mutex_init(&data->create, NULL) != 0)
+	{
+		printf(RED"Error: mutex init failed\n"RST);
+		pthread_mutex_destroy(&data->die);
+		pthread_mutex_destroy(&data->write);
+		return (free_all_philo(data->nbr_philo - 1, data), false);
+	}
+	return (true);
 }

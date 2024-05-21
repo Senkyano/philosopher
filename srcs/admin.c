@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 20:10:53 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 15:48:21 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/21 02:30:10 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@ void	*admin(void *arg)
 	t_table	*data;
 
 	data = (t_table *)arg;
-	while (1 && !data->all_create)
-		if (data->one_dead)
-			return (NULL);
+	pthread_mutex_lock(&data->create);
 	data->start_time = actual_time();
 	if (data->start_time == -1)
 	{
 		data->one_dead = true;
-		return (NULL);
+		return (pthread_mutex_unlock(&data->create), NULL);
 	}
 	data->admin_ready = true;
+	pthread_mutex_unlock(&data->create);
 	while (1)
 	{
 		if (check_death_admin(data))
@@ -70,7 +69,6 @@ int	check_death_admin(t_table *data)
 			data->one_dead = true;
 			printf(RED"%ld %d died\n"RST, time, i);
 			pthread_mutex_unlock(&data->write);
-			pthread_mutex_unlock(&data->die);
 			return (pthread_mutex_unlock(&data->die), true);
 		}
 	}

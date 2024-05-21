@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 21:34:36 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/17 16:38:02 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/21 02:41:00 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ bool	eating_pasta(t_philo *philo)
 
 	if (!print_action("is eating", philo))
 		return (false);
-	usleep(philo->data->time_to_eat * 1000);
+	if (usleep(philo->data->time_to_eat * 1000) != 0)
+	{
+		pthread_mutex_unlock(&philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		return (false);
+	}
 	philo->nbr_eat++;
 	pthread_mutex_unlock(&philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -68,9 +73,11 @@ bool	sleeping(t_philo *philo)
 {
 	if (!print_action("is sleeping", philo))
 		return (false);
-	usleep(philo->data->time_to_sleep * 1000);
+	if (usleep(philo->data->time_to_sleep * 1000) != 0)
+		return (false);
 	print_action("is thinking", philo);
 	if (philo->data->nbr_philo % 2 == 1)
-		usleep(philo->data->time_to_eat * 1000);
+		if (usleep(philo->data->time_to_eat * 1000) != 0)
+			return (false);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:20 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/16 16:01:08 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/21 02:34:39 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ bool	launch_philo(t_table *table)
 	int	i;
 
 	i = -1;
+	pthread_mutex_lock(&table->create);
 	if (pthread_create(&table->admin_thread, NULL, admin, table) != 0)
 	{
 		table->one_dead = true;
 		free_all_philo(table->nbr_philo - 1, table);
-		pthread_mutex_destroy(&table->die);
-		pthread_mutex_destroy(&table->write);
+		all_destroy(table);
 		return (printf(RED"Error: pthread_create failed\n"RST), false);
 	}
 	while (++i < table->nbr_philo)
@@ -57,12 +57,12 @@ bool	launch_philo(t_table *table)
 		{
 			table->one_dead = true;
 			free_all_philo(table->nbr_philo - 1, table);
-			pthread_mutex_destroy(&table->die);
-			pthread_mutex_destroy(&table->write);
+			all_destroy(table);
 			return (printf(RED"Error: pthread_create failed\n"RST), false);
 		}
 	}
 	table->all_create = true;
+	pthread_mutex_unlock(&table->create);
 	return (true);
 }
 
@@ -110,17 +110,8 @@ bool	init_sec(t_table *table, int argc)
 		if (!init_philo(i, table, &table->man[i]))
 			return (free_all_philo(i - 1, table), false);
 	}
-	if (pthread_mutex_init(&table->die, NULL) != 0)
-	{
-		printf(RED"Error: mutex init failed\n"RST);
-		return (free_all_philo(i - 1, table), false);
-	}
-	if (pthread_mutex_init(&table->write, NULL) != 0)
-	{
-		printf(RED"Error: mutex init failed\n"RST);
-		pthread_mutex_destroy(&table->die);
-		return (free_all_philo(i - 1, table), false);
-	}
+	if (!create_mutex(table))
+		return (false);
 	return (true);
 }
 

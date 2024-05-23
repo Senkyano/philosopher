@@ -6,7 +6,7 @@
 /*   By: rihoy <rihoy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 21:34:36 by rihoy             #+#    #+#             */
-/*   Updated: 2024/05/21 17:07:52 by rihoy            ###   ########.fr       */
+/*   Updated: 2024/05/23 12:38:04 by rihoy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ bool	print_action(char *str, t_philo *philo)
 		philo->data->one_dead = true;
 		return (pthread_mutex_unlock(&philo->data->write), false);
 	}
-	if (printf("%ld %d %s\n", time - philo->data->start_time, philo->id, str) \
-	< 0)
-	{
-		philo->data->one_dead = true;
-		return (pthread_mutex_unlock(&philo->data->write), false);
-	}
+	printf("%ld %d %s\n", time - philo->data->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->data->write);
 	return (true);
 }
